@@ -1,0 +1,151 @@
+section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    .user-auth-img {
+        padding: 0%;
+        width: 40%;
+        background-color: white;
+
+        img {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+        }
+    }
+
+    .user-auth-form {
+        display: flex;
+
+        justify-content: center;
+        width: 60%;
+        height: 100vh;
+        background-color: #f1f1f1;
+
+        overflow: auto;
+
+        .auth-title {
+            padding-top: 5rem;
+
+            h1 {
+                font-size: 40px;
+                font-weight: 600;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        form {
+            width: 391px;
+            padding-bottom: 4rem;
+            .input-container{
+                position: relative;
+                input{
+                    padding: 10px 10px 10px 40px;
+                }
+                 .fa-user {
+                    position: absolute;
+                    left: 10px;
+                    top: 54%;
+                    transform: translateY(-50%);
+                    font-size: 18px;
+                    color: #888;
+                    transition: opacity 0.2s;
+                  }
+                //   .input-container input:not(:placeholder-shown) {
+                //     padding:5px!important; /* Change padding to 5px when user types */
+                //   }
+                //    input:not(:placeholder-shown) + .fa-user {
+                //     display: none; /* Hide the icon when the input is not empty */
+                    
+                //   }
+                 
+            }
+            label {
+                display: block;
+                width: 100%;
+            }
+            select{
+                width: 100%;
+                height: 57px;
+                border-radius: 10px;
+                border: none;
+                outline: none;
+                padding-inline: 10px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+            input {
+                width: 100%;
+                height: 57px;
+                border-radius: 10px;
+                border: none;
+                outline: none;
+                padding-inline-start: 10px;
+                margin-top: 10px;
+            }
+
+            .file-upload {
+                height: 59px;
+                display: block;
+                background-color: white;
+                border-radius: 10px;
+            }
+
+            button {
+                width: 100%;
+                height: 59px;
+                font-size: 19px;
+                font-weight: 600;
+                color: white;
+                background: linear-gradient(133.74deg, #2DC991 14.56%, #17832F 112.62%);
+                border: none;
+                outline: none;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:1031px) {
+    section {
+        flex-direction: column;
+
+        .user-auth-img {
+            display: none;
+        }
+
+        .user-auth-form {
+            width: 100%;
+           div{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+           }
+            .auth-title{
+                text-align: center;
+                padding-inline: 10px;
+            }
+            form{
+                padding-inline: 10px;
+            }
+           
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 400px) {
+    section {
+        .user-auth-form{
+            form{
+                width: 100%!important;
+            }
+        }
+    }
+}
