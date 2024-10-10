@@ -1,0 +1,54 @@
+section {
+    
+    .user-head-bg-image {
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .user-image {
+       
+       
+       width: 100%;
+       text-align: center;
+       transform: translateY(-50%);
+     
+        img{
+            width: 163px;
+            height: 163px;
+            
+        }
+    }
+    .user-details{
+        h1{
+            font-size: 19px;
+            font-weight: 600;
+        }
+       
+        .loaction-info{
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            p{
+                font-size: 16px;
+                font-weight: 400;
+            }
+        }
+    }
+    .story-data{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 55px;
+        padding-inline: 10px;
+       .story-div{
+        padding: 1.5rem;
+        border: 1px solid #DEDEDE;
+        border-radius: 10px;
+       }
+    }
+}

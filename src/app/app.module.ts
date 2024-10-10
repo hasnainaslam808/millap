@@ -6,16 +6,20 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DataListComponent } from './pages/data-list/data-list.component';
+import { UserAuthComponent } from './user-auth/user-auth.component';
+import { SelectedUserStoryComponent } from './selected-user-story/selected-user-story.component';
+import { EnterMissingPersonDetialsComponent } from './enter-missing-person-detials/enter-missing-person-detials.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    DashboardComponent,
-    DataListComponent
+    UserAuthComponent,
+    SelectedUserStoryComponent,
+    EnterMissingPersonDetialsComponent,
+   
   ],
   imports: [
     BrowserModule,

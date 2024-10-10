@@ -1,0 +1,58 @@
+<section>
+    <div class="user-auth-img">
+        <img src="../../assets/auth-bg.png" alt="">
+    </div>
+    <div class="user-auth-form">
+        <div>
+            <div class="auth-title">
+                <h1>{{mainTitle}} </h1>
+                <p>{{subTitle}} </p>
+            </div>
+            <form *ngIf="currentRoute === 'sign-up'">
+                <label for="email">Email</label>
+                <input type="email" placeholder="myname@email.com" id="email">
+                <label for="fName" class="mt-3">First Name</label>
+                <input type="text" id="fName" placeholder="example name">
+                <label for="lName" class="mt-3">Last Name</label>
+                <input type="text" id="lName" placeholder="example name">
+                <div class=" row justify-content-between  mt-3 cc-edit">
+                    <div class="col-md-6 col-12 ">
+                        <label for="country">Country</label>
+                        <select name="country" id="country">
+                            <option value="usa" selected> Usa</option>
+                        </select>
+                      
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="city">City</label>
+                        <select name="city" id="city">
+                            <option value="Geaorgia" selected> Geaorgia</option>
+                        </select>
+                    </div>
+                </div>
+                <label for="Location" class="mt-3">Location</label>
+                <input type="text" placeholder="Location" id="Location">
+                <label for="upload photo" class="mt-3" >upload photo</label>
+                <label for="upload photo" class="file-upload mt-3"></label>
+                
+                <input type="file" placeholder="upload photo" id="upload photo" hidden>
+                <button type="submit" class="mt-3">Register</button>
+            </form>
+            <form *ngIf="currentRoute ==='log-in'" class="mt-5">
+                <label for="">Enter Your Name Or Email</label>
+                <div class="input-container">
+                    <input type="email" placeholder="myname@email.com">
+                    <img src="../../assets/user.png" alt="" class=" fa-user">
+                </div>
+                
+                <label for="passowrd" class="mt-3">Passowrd</label>
+                <div class="input-container">
+                    <input type="password" name="passowrd" id="passowrd" placeholder="*******">
+                    <img src="../../assets/pass.png" alt="" class=" fa-user">
+                </div>
+                
+                <button type="submit" class="mt-3">log in </button>
+            </form>
+        </div>
+    </div>
+</section>
