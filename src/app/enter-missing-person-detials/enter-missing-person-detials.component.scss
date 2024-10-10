@@ -1,0 +1,86 @@
+section{
+    .flex{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        .title{
+            text-align: center;
+            h1{
+                font-size: 19px;
+                font-weight: 600;
+            }
+        }
+        .form-div{
+            width: 500px;
+            border: 1px solid #DEDEDE;
+            padding: 1rem;
+            form{
+                select{
+                    width: 100%;
+                    height: 49px;
+                    background-color: #F8F8F8;
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    margin-top: 10px;
+                    padding-inline-start: 10px;
+                }
+                label{
+                    display: block;
+                    width: 100%;
+                    font-size: 18px;
+                    font-weight: 600;
+                    
+                }
+                input{
+                    width: 100%;
+                    height: 49px;
+                    background-color: #F8F8F8;
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    margin-top: 10px;
+                    padding-inline-start: 10px;
+                }
+                textarea{
+                    width: 100%;
+                    background-color: #F8F8F8;
+                    border: none;
+                    outline: none;
+                    border-radius: 5px;
+                }
+                button {
+                    width: 100%;
+                    height: 59px;
+                    font-size: 19px;
+                    font-weight: 600;
+                    color: white;
+                    background: linear-gradient(133.74deg, #2DC991 14.56%, #17832F 112.62%);
+                    border: none;
+                    outline: none;
+                    border-radius: 10px;
+                }
+            }
+            .file-upload {
+                height: 49px;
+                display: block;
+                background-color: #F8F8F8;
+
+                border-radius: 5px;
+            }
+        }
+       
+    }
+    
+} 
+
+@media only screen and (min-width: 300px) and (max-width: 700px){
+    .flex{
+        padding: 10px!important;
+        .form-div{
+            width: 100%!important;
+        }
+    }
+}
