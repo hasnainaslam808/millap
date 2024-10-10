@@ -1,0 +1,61 @@
+.container-fluid {
+    background-image: url('../../../assets/mask.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 40px 20px;
+}
+
+h3 {
+    margin-inline-start: 25px;
+}
+
+.dashboard-tabs {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-block-start: 50px;
+}
+
+.tab {
+    flex: 1 1 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    h3{
+        font-size: 30px;
+        font-weight: 500;
+    }
+}
+
+.tab img {
+    width: 84px;
+    height: 84px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .tab {
+        flex: 1 1 45%; /* Increase width on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .tab {
+        flex: 1 1 100%; /* Stacks tabs vertically on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .tab {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tab img {
+        margin-block-start: 10px;
+    }
+}

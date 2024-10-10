@@ -1,0 +1,196 @@
+.container-fluid {
+    .list-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-block-start: 20px;
+
+        .list-tab {
+            background-color: rgb(238, 251, 241);
+            padding: 30px;
+            border-radius: 10px;
+            width: 45%; /* Default width */
+            transition: all 0.3s ease;
+
+            .inside-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .pofile {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+
+                    img {
+                        width: 55px;
+                        height: 55px;
+                    }
+
+                    .detail {
+                        h3 {
+                            font-size: 22px;
+                            font-weight: 600;
+                        }
+
+                        .street-adress {
+                            display: flex;
+                            gap: 8px;
+                            align-items: baseline;
+
+                            h6 {
+                                font-size: 14px;
+                                font-weight: 400;
+                            }
+
+                            img {
+                                width: 11px;
+                                height: 13px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .location {
+            display: flex;
+            gap: 10px;
+
+            h6 {
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            img {
+                height: 22px;
+                width: 22px;
+            }
+        }
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 1200px) {
+        .list-tab {
+            width: 60%;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .list-tab {
+            width: 75%;
+        }
+    }
+
+    /* Trigger wrapping at 680px */
+    @media (max-width: 680px) {
+        .list-container {
+            flex-direction: column;
+             /* Stack items in a column to force wrapping */
+        }
+
+        .list-tab {
+            width: 90% !important;
+            margin: auto !important; /* Adjust width to make content readable on smaller screens */
+        }
+
+        .inside-container {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .location {
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+    }
+
+    /* For screens below 576px */
+    @media (max-width: 576px) {
+        .list-tab {
+            width: 100%; /* Full width for smaller screens */
+            padding: 20px;
+        }
+
+        .inside-container {
+            gap: 15px;
+
+            .pofile {
+                flex-direction: column; /* Stack profile elements vertically */
+                align-items: flex-start;
+            }
+
+            .pofile img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .detail h3 {
+                font-size: 20px;
+            }
+
+            .street-adress h6 {
+                font-size: 12px;
+            }
+
+            .location img {
+                height: 18px;
+                width: 18px;
+            }
+        }
+
+        .location h6 {
+            font-size: 12px;
+        }
+    }
+
+    /* Additional Styles for Smaller Screens (360px) */
+    @media (max-width: 360px) {
+        .list-tab {
+            width: 100%; /* Keep the width fixed at 100% */
+            padding: 15px;
+        }
+
+        .inside-container {
+            flex-direction: column; /* Stack elements in column */
+            align-items: flex-start;
+            gap: 10px;
+
+            .pofile {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .detail h3 {
+                    font-size: 18px;
+                }
+
+                .street-adress h6 {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .location {
+            gap: 5px;
+
+            h6 {
+                font-size: 11px;
+            }
+
+            img {
+                height: 16px;
+                width: 16px;
+            }
+        }
+    }
+}
