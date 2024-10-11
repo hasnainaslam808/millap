@@ -56,3 +56,20 @@
     }
 
 }
+
+@media (max-width: 550px) {
+
+    .container-fluid{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 10px;
+        gap: 15px;
+    }
+    .logo{
+        img{
+            height: 46px !important;
+            width: 135px !important; 
+        
+        }
+     }
+}
