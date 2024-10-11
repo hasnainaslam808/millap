@@ -1,5 +1,5 @@
-<!-- <app-header></app-header>
-<app-dashboard></app-dashboard>
-<app-data-list></app-data-list>
-<app-footer></app-footer> -->
+<app-header *ngIf="layOutTogle"></app-header>
+
 <router-outlet></router-outlet>
+
+<app-footer *ngIf="layOutTogle"></app-footer>

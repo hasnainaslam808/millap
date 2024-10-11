@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-user-auth',
@@ -14,7 +15,16 @@ export class UserAuthComponent {
 
   email: string = '';
   password: string = '';
-  constructor(private activateroute:ActivatedRoute) { 
+
+  selectedFile: File | null = null;  // Store the selected file
+
+
+  // Handle file selection
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  constructor(private activateroute:ActivatedRoute,private auth:AuthService) { 
     this.activateroute.data.subscribe((res:any)=>{
     this.currentRoute=res.currentRoute
     if(this.currentRoute === 'sign-up'){
@@ -34,6 +44,11 @@ login(val: NgForm) {
     });
     return;
   }
+  const email = val.value.email;
+  const password = val.value.password;
+
+  // Logging the email and password to the console
+  this.auth.login(email,password)
 
   
 
@@ -46,6 +61,12 @@ signup(val: NgForm) {
     });
     return;
   }
+// console.log(this.selectedFile);
+
+  
+
+  // Logging the email and password to the console
+  this.auth.register(val,this.selectedFile)
 
 }
 }
