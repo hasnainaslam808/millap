@@ -13,6 +13,8 @@ import { SelectedUserStoryComponent } from './pages/selected-user-story/selected
 import { EnterMissingPersonDetialsComponent } from './pages/enter-missing-person-detials/enter-missing-person-detials.component';
 import { DataListComponent } from './pages/data-list/data-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FvrtStoryComponent } from './pages/fvrt-story/fvrt-story.component';
+import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     SelectedUserStoryComponent,
     EnterMissingPersonDetialsComponent,
     DataListComponent,
-    DashboardComponent
+    DashboardComponent,
+    FvrtStoryComponent,
+    UpdateProfileComponent
    
   ],
   imports: [

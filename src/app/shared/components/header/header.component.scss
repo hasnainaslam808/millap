@@ -54,6 +54,11 @@
             }
         }
     }
+    .dropdown-menu .dropdown-item:focus {
+        background-color: transparent;  /* Prevent blue background on hover and focus */
+        color: inherit; /* Keep the text color the same */
+        outline: none; /* Remove the outline on focus */
+      }
 
 }
 
