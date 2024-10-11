@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-auth',
@@ -10,6 +11,9 @@ export class UserAuthComponent {
   currentRoute = ''
   mainTitle = ''
   subTitle = '';
+
+  email: string = '';
+  password: string = '';
   constructor(private activateroute:ActivatedRoute) { 
     this.activateroute.data.subscribe((res:any)=>{
     this.currentRoute=res.currentRoute
@@ -21,4 +25,27 @@ export class UserAuthComponent {
       this.subTitle = 'please enter your registered name and email bellow to login your account.'
     }
     })
-}}
+}
+
+login(val: NgForm) {
+  if (val.invalid) {
+    Object.values(val.controls).forEach(control => {
+      control.markAsTouched();
+    });
+    return;
+  }
+
+  
+
+}
+
+signup(val: NgForm) {
+  if (val.invalid) {
+    Object.values(val.controls).forEach(control => {
+      control.markAsTouched();
+    });
+    return;
+  }
+
+}
+}

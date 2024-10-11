@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserAuthComponent } from './user-auth/user-auth.component';
-import { SelectedUserStoryComponent } from './pages/selected-user-story/selected-user-story.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { EnterMissingPersonDetialsComponent } from './pages/enter-missing-person-detials/enter-missing-person-detials.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { DataListComponent } from './pages/data-list/data-list.component';
+import { SelectedUserStoryComponent } from './selected-user-story/selected-user-story.component';
+import { MissingPersonDetailComponent } from './pages/missing-person-detail/missing-person-detail.component';
 
 const routes: Routes = [
   {path:'',component:HeaderComponent},
-  {path:'missing-person-detail',component:EnterMissingPersonDetialsComponent},
+  {path:'missing-person-detail',component:MissingPersonDetailComponent},
   {path:'love-ones',component:DataListComponent},
   {path:'detail',component:SelectedUserStoryComponent},
   {path:'sign-up',component:UserAuthComponent,data:{currentRoute:'sign-up',header:false}},
