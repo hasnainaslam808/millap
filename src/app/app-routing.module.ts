@@ -7,6 +7,7 @@ import { DataListComponent } from './pages/data-list/data-list.component';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { MissingPersonDetailComponent } from './pages/missing-person-detail/missing-person-detail.component';
 import { SelectedUserStoryComponent } from './selected-user-story/selected-user-story.component';
+import { FvrtStoryComponent } from './pages/fvrt-story/fvrt-story.component';
 
 // const routes: Routes = [
  
@@ -29,14 +30,14 @@ const routes: Routes = [
     component: DashboardComponent, data:{header:true,},
     children: [
       { path: '', redirectTo: '', pathMatch: 'full' }, // Default child route
-      { path: 'favorite-story', component: DataListComponent,data:{header:true,} },
+      { path: 'favorite-story', component: FvrtStoryComponent,data:{header:true,} },
       { path: '', component: DataListComponent,data:{header:true,} },
       { path: 'missing-person-detail', component: MissingPersonDetailComponent,data:{header:true,} }
     ] 
   },
   { path: 'sign-up', component: UserAuthComponent,data:{currentRoute:'sign-up',header:false,} },
   { path: 'log-in', component: UserAuthComponent, data:{currentRoute:'log-in',header:false,}},
-  { path: 'user-story', component: SelectedUserStoryComponent,data:{header:true,} },
+  { path: 'user-story/:id', component: SelectedUserStoryComponent,data:{header:true,} },
   { path: 'update-profile', component: UpdateProfileComponent,data:{header:true,} },
 
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route to dashboard

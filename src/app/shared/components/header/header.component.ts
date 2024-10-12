@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseCollectionService } from '../../services/firebase-collection.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +8,17 @@ import { FirebaseCollectionService } from '../../services/firebase-collection.se
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
+
 imgUrl=''
-  constructor(private firebase:FirebaseCollectionService){
+  constructor(private firebase:FirebaseCollectionService,private authS:AuthService){
   
   }
 
 
   ngOnInit():void{
+   
 
-
-    var id='Wk4N8EjU18anyOE601V0eBEnZuB3'
+    const id =localStorage.getItem('userId');
     this.firebase.getUserData(id).then((res:any)=>{
 
     console.log(res);
@@ -27,5 +29,9 @@ imgUrl=''
     }).catch((err:any)=>{
 
     })
+  }
+  
+  logOut() {
+    this.authS.logOut()
   }
 }

@@ -45,8 +45,8 @@ selectedFile!: File   // Store the selected file
       city:val.value.city,
       location:val.value.Location,
       story:val.value.Story,
-      imgUrl:''
-
+      imgUrl:'',
+      isFavorite:false
     }
     
   this.firebase.uploadUserStory(obj,this.selectedFile)

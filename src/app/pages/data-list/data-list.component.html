@@ -5,12 +5,12 @@
 <div class="container-fluid">
 
     <div class="list-container">
-        <div class="list-tab" routerLink="/user-story" *ngFor="let item of personData">
+        <div class="list-tab"  *ngFor="let item of personData ;let i = index">
             <div class="text-end">
-                <img src="assets/heart.png" alt="" width="21px" height="21px">
-                <img src="assets/fill heart.png" alt="" width="23px" height="23px">
+                <img src="{{item.isFavorite ? 'assets/fill heart.png' : 'assets/heart.png'}}" alt="" width="21px" height="21px" (click)="addFvrt(item.isFavorite,item.id,i)">
+
             </div>
-            <div class="inside-container">
+            <div class="inside-container" [routerLink]="['/user-story', item.id]">
                 <div class="pofile">
                     <div class="profile-img"><img src={{item.imgUrl}} alt=""></div>
                     <div class="detail">
