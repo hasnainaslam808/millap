@@ -38,8 +38,11 @@ export class FirebaseCollectionService {
     try {
       const storage = getStorage();
   
+      // Extract the path from the imageUrl (after /o/ and before ?)
+      const storagePath = decodeURIComponent(imageUrl.split('/o/')[1].split('?')[0]);
+  
       // Create a reference to the file to delete
-      const storageRef = ref(storage, imageUrl);
+      const storageRef = ref(storage, storagePath);
   
       // Delete the file
       await deleteObject(storageRef);
@@ -48,6 +51,7 @@ export class FirebaseCollectionService {
       console.error('Error removing image:', error);
     }
   }
+  
   
 
    // Method to fetch user data from Firestore

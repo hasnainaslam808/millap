@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirebaseCollectionService } from 'src/app/shared/services/firebase-collection.service';
 
 
@@ -8,34 +10,47 @@ import { FirebaseCollectionService } from 'src/app/shared/services/firebase-coll
   styleUrls: ['./update-profile.component.scss']
 })
 export class UpdateProfileComponent implements OnInit {
-
-city=''
-country=''
-email=''
-name=''
-location=''
-imgUrl=''
-
-
-  constructor(private firebase:FirebaseCollectionService){}
-
- 
+  userProfile = {
+    city: '',
+    country: '',
+    email: '',
+    fullname: '',
+    location: '',
+    imageUrl: ''
+  };
 
 
-  ngOnInit( ):void{
-    var id='4SZshZJnxNXLVagOZaiKTN1Pk1R2'
-    this.firebase.getUserData(id).then((res:any)=>{
 
-    console.log(res);
-    this.city=res.city
-    this.country=res.country
-    this.email=res.email
-    this.name=res.fullname
-this.location=res.location
-    this.imgUrl=res.imageUrl
+  constructor(private firebase: FirebaseCollectionService, private authService: AuthService) { }
 
 
-    }).catch((err:any)=>{
+
+
+  ngOnInit(): void {
+    var id = localStorage.getItem('userId');
+    this.firebase.getUserData(id).then((res: any) => {
+
+      this.userProfile = res
+      console.log(res)
+
+    }).catch((err: any) => {
+
+    })
+  }
+
+  selectedFile: File | null = null;  // Store the selected file
+
+
+  // Handle file selection
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+  updateProfile(val: NgForm) {
+    const userId = localStorage.getItem('userId');
+
+    this.authService.updateProfileData(userId, this.userProfile, this.selectedFile).then((res: any) => {
+
+    }).catch((err: any) => {
 
     })
   }

@@ -20,7 +20,7 @@ export class AuthService {
   login(email: string, password: string) {
     signInWithEmailAndPassword(this.auth, email, password)
       .then((res) => {
-        localStorage.setItem('token', 'true');
+        // localStorage.setItem('token', 'true');
         const user = res.user;
 
         // Store user ID in local storage
@@ -125,10 +125,10 @@ export class AuthService {
 
 
 
-  async updateProfileData(userId: string, newUserData: any, file: File | null) {
+  async updateProfileData(userId: any, newUserData: any, file: File | null) {
     try {
       // Firestore reference to the user document
-      const userRef = doc(this.firestore, `users/${userId}`);
+      const userRef = doc(this.firestore, `userdata/${userId}`);
       
       // Check if a new file (image) is provided
       if (file) {
@@ -151,7 +151,13 @@ export class AuthService {
       }
   
       // Update the user data in Firestore
-      await updateDoc(userRef, newUserData);
+      return this.collectionService.storeUserData(userId, newUserData)
+            .then(() => {
+              console.log('User data stored successfully in Firestore');
+            })
+            .catch((err) => {
+              console.error('Error storing user data:', err);
+            });
       console.log('User data updated successfully in Firestore');
     } catch (error) {
       console.error('Error updating user data:', error);
