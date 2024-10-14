@@ -23,6 +23,9 @@
         .profile{
             display: flex;
             align-items: center;
+            img{
+                border-radius: 50%;
+            }
             .dropdown{
                 .dropdown-toggle{
                     font-size: 18px;

@@ -8,6 +8,7 @@ import { UpdateProfileComponent } from './pages/update-profile/update-profile.co
 import { MissingPersonDetailComponent } from './pages/missing-person-detail/missing-person-detail.component';
 import { SelectedUserStoryComponent } from './selected-user-story/selected-user-story.component';
 import { FvrtStoryComponent } from './pages/fvrt-story/fvrt-story.component';
+import { authGuardGuard } from './shared/services/auth-guard.guard';
 
 // const routes: Routes = [
  
@@ -29,18 +30,18 @@ const routes: Routes = [
     path: 'dashboard', 
     component: DashboardComponent, data:{header:true,},
     children: [
-      { path: '', redirectTo: '', pathMatch: 'full' }, // Default child route
-      { path: 'favorite-story', component: FvrtStoryComponent,data:{header:true,} },
-      { path: '', component: DataListComponent,data:{header:true,} },
-      { path: 'missing-person-detail', component: MissingPersonDetailComponent,data:{header:true,} }
+      // { path: '', redirectTo: '', pathMatch: 'full' }, // Default child route
+      { path: 'favorite-story', component: FvrtStoryComponent,data:{header:true,}, canActivate:[authGuardGuard] },
+      { path: '', component: DataListComponent,data:{header:true,} , canActivate:[authGuardGuard] },
+      { path: 'missing-person-detail', component: MissingPersonDetailComponent,data:{header:true,}, canActivate:[authGuardGuard]  }
     ] 
   },
   { path: 'sign-up', component: UserAuthComponent,data:{currentRoute:'sign-up',header:false,} },
   { path: 'log-in', component: UserAuthComponent, data:{currentRoute:'log-in',header:false,}},
-  { path: 'user-story/:id', component: SelectedUserStoryComponent,data:{header:true,} },
-  { path: 'update-profile', component: UpdateProfileComponent,data:{header:true,} },
+  { path: 'user-story/:id', component: SelectedUserStoryComponent,data:{header:true,} , canActivate:[authGuardGuard] },
+  { path: 'update-profile', component: UpdateProfileComponent,data:{header:true,}, canActivate:[authGuardGuard]  },
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route to dashboard
+  { path: '', redirectTo: '/log-in', pathMatch: 'full',  }, // Default route to dashboard
   { path: '**', redirectTo: '/dashboard' } // Wildcard route
 ];
 @NgModule({

@@ -224,6 +224,7 @@ export class FirebaseCollectionService {
       const docRef = await addDoc(favoriteStoryRef, favoriteStoryData);
 
       console.log('Favorite story saved with ID:', docRef.id);
+      this.toaster.success("added to favourite")
     } catch (error) {
       console.error('Error saving favorite story:', error);
     }
@@ -288,9 +289,11 @@ export class FirebaseCollectionService {
         const docRef = doc(this.firestore, `favorite-story/${docSnapshot.id}`);
         await deleteDoc(docRef);
         console.log(`Favorite story with ID ${storyId} removed for user ${userId}`);
+        this.toaster.success('Removed from favourite')
       });
 
-    } catch (error) {
+    } catch (error:any) {
+      this.toaster.error(error.message)
       console.error('Error removing favorite story:', error);
     }
   }
