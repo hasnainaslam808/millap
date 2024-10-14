@@ -1,15 +1,11 @@
 section {
-
     height: 100vh;
     padding-top: 2rem;
     padding-bottom: 2rem;
 
     .user-image {
-
-
         width: 100%;
         text-align: start;
-
 
         img {
             width: 163px;
@@ -24,8 +20,13 @@ section {
 
             img {
                 position: absolute;
-                right: 5px;
-                top: 15px;
+                right: 10px;  // Adjust as needed to fit within the input
+                top: 50%;     // Center the image vertically
+                transform: translateY(-50%);  // Adjust to center the image vertically
+                max-width: 40px;   // Set a max width to prevent overflow
+                max-height: 40px;  // Set a max height to prevent overflow
+                height: auto;      // Maintain aspect ratio
+                width: auto;       // Maintain aspect ratio
             }
         }
 
@@ -61,7 +62,6 @@ section {
             height: 59px;
             display: block;
             background-color: #f1f1f1;
-            border-radius: 10px;
         }
 
         .btn {
@@ -83,9 +83,8 @@ section {
     }
 }
 
-@media only screen and (max-width:1031px) {
+@media only screen and (max-width: 1031px) {
     section {
-
         .user-image {
             text-align: center !important;
         }

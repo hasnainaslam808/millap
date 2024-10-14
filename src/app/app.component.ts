@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
   title = 'millap';
   layOutTogle: boolean = false
   dashboard = false
-  constructor(private router:Router){
+  constructor(private router:Router,private toaster:ToastrService){
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

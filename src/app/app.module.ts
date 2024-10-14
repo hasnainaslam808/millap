@@ -23,6 +23,11 @@ import { environment } from 'src/environments/environment.staging';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { FirestoreModule } from '@angular/fire/firestore';
+
+
+// toaster
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +45,8 @@ import { FirestoreModule } from '@angular/fire/firestore';
     BrowserModule,
     AppRoutingModule,
     NgbModule,FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
     // Initialize Firebase app
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

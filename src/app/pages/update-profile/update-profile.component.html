@@ -86,13 +86,16 @@
                     </div>
                   
                     <div class="col-md-6 col-12">
-                      <label for="upload photo" class="mt-3">Upload Photo</label>
+                      <label for="upload-photo" class="mt-3">Upload Photo</label>
                       <div class="upload-icon">
-                        <label for="upload photo" class="file-upload mt-2"></label>
-                        <img src="../../../assets/OBJECTS.png" alt="">
+                        <label for="upload-photo" class="file-upload mt-2">
+                          <input type="file" id="upload-photo" (change)="onFileSelected($event)" hidden />
+                          <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" class="image-preview" />
+                        </label>
+                        <!-- <img src="../../../assets/OBJECTS.png" alt="" /> -->
                       </div>
-                      <input type="file" id="upload photo" (change)="onFileSelected($event)" hidden>
                     </div>
+                    
                   
                     <div class="col-12 btn">
                       <div class="col-md-3 col-12">

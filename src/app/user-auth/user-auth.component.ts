@@ -9,64 +9,59 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./user-auth.component.scss']
 })
 export class UserAuthComponent {
-  currentRoute = ''
-  mainTitle = ''
+  currentRoute = '';
+  mainTitle = '';
   subTitle = '';
-
   email: string = '';
   password: string = '';
-
   selectedFile: File | null = null;  // Store the selected file
+  imagePreview: string | ArrayBuffer | null = null;  // To store the image preview
 
-
-  // Handle file selection
+  // Handle file selection and generate image preview
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-  }
-
-  constructor(private activateroute:ActivatedRoute,private auth:AuthService) { 
-    this.activateroute.data.subscribe((res:any)=>{
-    this.currentRoute=res.currentRoute
-    if(this.currentRoute === 'sign-up'){
-      this.mainTitle = 'Enter your details'
-      this.subTitle = 'please enter your details to create an account'
-    }else if(this.currentRoute === 'log-in'){
-       this.mainTitle = 'Login to your account'
-      this.subTitle = 'please enter your registered name and email bellow to login your account.'
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;  // Store the image data as a preview
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
-    })
-}
-
-login(val: NgForm) {
-  if (val.invalid) {
-    Object.values(val.controls).forEach(control => {
-      control.markAsTouched();
-    });
-    return;
   }
-  const email = val.value.email;
-  const password = val.value.password;
 
-  // Logging the email and password to the console
-  this.auth.login(email,password)
-
-  
-
-}
-
-signup(val: NgForm) {
-  if (val.invalid) {
-    Object.values(val.controls).forEach(control => {
-      control.markAsTouched();
+  constructor(private activateroute: ActivatedRoute, private auth: AuthService) {
+    this.activateroute.data.subscribe((res: any) => {
+      this.currentRoute = res.currentRoute;
+      if (this.currentRoute === 'sign-up') {
+        this.mainTitle = 'Enter your details';
+        this.subTitle = 'Please enter your details to create an account';
+      } else if (this.currentRoute === 'log-in') {
+        this.mainTitle = 'Login to your account';
+        this.subTitle = 'Please enter your registered name and email below to login to your account.';
+      }
     });
-    return;
   }
-// console.log(this.selectedFile);
 
-  
+  login(val: NgForm) {
+    if (val.invalid) {
+      Object.values(val.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
+    }
+    const email = val.value.email;
+    const password = val.value.password;
 
-  // Logging the email and password to the console
-  this.auth.register(val,this.selectedFile)
+    this.auth.login(email, password);
+  }
 
-}
+  signup(val: NgForm) {
+    if (val.invalid) {
+      Object.values(val.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
+    }
+    this.auth.register(val, this.selectedFile);
+  }
 }

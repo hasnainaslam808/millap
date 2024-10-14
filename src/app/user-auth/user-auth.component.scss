@@ -154,3 +154,39 @@ section {
         }
     }
 }
+
+
+.file-upload {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #f9f9f9;
+  }
+  
+  .upload-label span {
+    flex-grow: 1;
+  }
+  
+  .preview-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  

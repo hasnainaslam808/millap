@@ -16,42 +16,42 @@ export class UpdateProfileComponent implements OnInit {
     email: '',
     fullname: '',
     location: '',
-    imageUrl: ''
+    imageUrl: ''  // This will display an already saved profile image
   };
 
-
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = '';  // Used to preview the uploaded image
 
   constructor(private firebase: FirebaseCollectionService, private authService: AuthService) { }
 
-
-
-
   ngOnInit(): void {
-    var id = localStorage.getItem('userId');
+    const id = localStorage.getItem('userId');
     this.firebase.getUserData(id).then((res: any) => {
-
-      this.userProfile = res
-      console.log(res)
-
+      this.userProfile = res;
     }).catch((err: any) => {
-
-    })
+      console.error(err);
+    });
   }
 
-  selectedFile: File | null = null;  // Store the selected file
-
-
-  // Handle file selection
+  // Handle file selection and create image preview
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+    
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;  // Preview of the uploaded image
+    };
+    if (this.selectedFile) {
+      reader.readAsDataURL(this.selectedFile);  // Read the image file for preview
+    }
   }
+
   updateProfile(val: NgForm) {
     const userId = localStorage.getItem('userId');
-
     this.authService.updateProfileData(userId, this.userProfile, this.selectedFile).then((res: any) => {
-
+      console.log('Profile updated successfully');
     }).catch((err: any) => {
-
-    })
+      console.error(err);
+    });
   }
 }
