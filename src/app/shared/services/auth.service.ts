@@ -8,6 +8,7 @@ import { FirebaseCollectionService } from './firebase-collection.service';
 // import { doc, Firestore, getDoc, updateDoc } from 'firebase/firestore';
 import { Firestore, doc, setDoc,getDoc,collection, addDoc,getDocs, query, where ,deleteDoc, updateDoc } from '@angular/fire/firestore';
 
+import { getAuth,  updateEmail } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -125,43 +126,123 @@ export class AuthService {
 
 
 
+  // async updateProfileData(userId: any, newUserData: any, file: File | null) {
+  //   try {
+  //     // Firestore reference to the user document
+  //     const userRef = doc(this.firestore, `userdata/${userId}`);
+      
+  //     // Check if a new file (image) is provided
+  //     if (file) {
+  //       // Get the existing user data to retrieve the current image URL
+  //       const docSnap:any = await getDoc(userRef);
+  //       if (docSnap.exists()) {
+  //         const currentData = docSnap.data();
+  //         const currentImageUrl = currentData.imageUrl;
+  
+  //         // Remove the existing image if needed
+  //         if (currentImageUrl) {
+  //           await this.collectionService.removeImage(currentImageUrl);
+  //         }
+          
+  //         // Upload the new image and get the URL
+  //         const newImageUrl = await this.collectionService.uploadImage(userId, file);
+  //         // Update the new image URL in userData
+  //         newUserData.imageUrl = newImageUrl;
+  //       }
+  //     }
+  
+  //     // Update the user data in Firestore
+  //     return this.collectionService.storeUserData(userId, newUserData)
+  //           .then(() => {
+  //             console.log('User data stored successfully in Firestore');
+  //           })
+  //           .catch((err) => {
+  //             console.error('Error storing user data:', err);
+  //           });
+  //     console.log('User data updated successfully in Firestore');
+  //   } catch (error) {
+  //     console.error('Error updating user data:', error);
+  //   }
+  // }
+  
+
+
+
+
+
+
+
+
+
+
+  
   async updateProfileData(userId: any, newUserData: any, file: File | null) {
     try {
-      // Firestore reference to the user document
-      const userRef = doc(this.firestore, `userdata/${userId}`);
-      
-      // Check if a new file (image) is provided
-      if (file) {
-        // Get the existing user data to retrieve the current image URL
-        const docSnap:any = await getDoc(userRef);
-        if (docSnap.exists()) {
-          const currentData = docSnap.data();
-          const currentImageUrl = currentData.imageUrl;
-  
-          // Remove the existing image if needed
-          if (currentImageUrl) {
-            await this.collectionService.removeImage(currentImageUrl);
-          }
-          
-          // Upload the new image and get the URL
-          const newImageUrl = await this.collectionService.uploadImage(userId, file);
-          // Update the new image URL in userData
-          newUserData.imageUrl = newImageUrl;
+        // Firestore reference to the user document
+        const userRef = doc(this.firestore, `userdata/${userId}`);
+
+        // Check if a new file (image) is provided
+        if (file) {
+            const docSnap: any = await getDoc(userRef);
+            if (docSnap.exists()) {
+                const currentData = docSnap.data();
+                const currentImageUrl = currentData.imageUrl;
+
+                // Remove the existing image if needed
+                if (currentImageUrl) {
+                    await this.collectionService.removeImage(currentImageUrl);
+                }
+
+                // Upload the new image and update newUserData
+                const newImageUrl = await this.collectionService.uploadImage(userId, file);
+                newUserData.imageUrl = newImageUrl;
+            }
         }
-      }
-  
-      // Update the user data in Firestore
-      return this.collectionService.storeUserData(userId, newUserData)
-            .then(() => {
-              console.log('User data stored successfully in Firestore');
-            })
-            .catch((err) => {
-              console.error('Error storing user data:', err);
-            });
-      console.log('User data updated successfully in Firestore');
+
+        // Get current user data from Firestore
+        const currentUserData = await this.collectionService.getUserData(userId);
+
+        // Get the currently logged-in Firebase user
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+
+        // Check if the current user exists
+        if (!currentUser) {
+            console.error('No logged-in user found.');
+            return;
+        }
+
+        // Check if the email has changed
+        if (currentUserData.email !== newUserData.email) {
+            try {
+                // Update the user's email address
+                await updateEmail(currentUser, newUserData.email);
+                console.log('Email updated successfully to:', newUserData.email);
+
+                // Send a verification email for the new email
+                await sendEmailVerification(currentUser);
+                console.log('Verification email sent to:', newUserData.email);
+            } catch (error:any) {
+                console.error('Error updating email:', error);
+                // Handle cases like re-authentication if required
+                if (error.code === 'auth/requires-recent-login') {
+                    console.error('User needs to re-authenticate before changing email.');
+                    // Here you may want to call a re-authentication function
+                }
+                return
+            }
+        }
+
+        // Update the user data in Firestore (including new image URL if applicable)
+        await this.collectionService.storeUserData(userId, newUserData);
+        console.log('User data updated successfully.');
+
     } catch (error) {
-      console.error('Error updating user data:', error);
+        console.error('Error updating user data:', error);
     }
-  }
+}
+
+
+
   
 }
