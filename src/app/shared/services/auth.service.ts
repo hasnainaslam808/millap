@@ -10,12 +10,13 @@ import { Firestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, whe
 import { ToastrService } from 'ngx-toastr';
 
 import { getAuth,  updateEmail } from 'firebase/auth';
+import { AuthGaurdService } from './auth-gaurd.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private auth: Auth, private router: Router, private collectionService: FirebaseCollectionService, private firestore: Firestore, private toaster: ToastrService) { }
+  constructor(private auth: Auth, private router: Router, private collectionService: FirebaseCollectionService, private firestore: Firestore, private toaster: ToastrService,private dataService:AuthGaurdService) { }
 
 
 
@@ -33,10 +34,10 @@ export class AuthService {
 
         if (res.user?.emailVerified) {
           this.toaster.success('log Inn successfully')
-          this.router.navigate(['admin']);
+          this.router.navigate(['dashboard']);
         } else {
           this.toaster.warning('Email not verified')
-          console.warn('Email not verified');
+          // console.warn('Email not verified');
         }
       })
       .catch((err) => {
@@ -52,20 +53,20 @@ export class AuthService {
 
     createUserWithEmailAndPassword(this.auth, email, password)
       .then((res: any) => {
-        this.toaster.success(res)
+        // this.toaster.success(res)
         // console.log('User registered:', res);
         const userId = res.user.uid; // Get the UID of the registered user
-        console.log("yes", res.user);
+        // console.log("yes", res.user);
 
         // Send verification email
         sendEmailVerification(res.user)
           .then(() => {
             this.toaster.warning('Verification email sent:', res.user.email)
-            console.log('Verification email sent to:', res.user.email);
+            // console.log('Verification email sent to:', res.user.email);
           })
           .catch((err) => {
             this.toaster.error(err.message)
-            console.error('Error sending verification email:', err);
+            // console.error('Error sending verification email:', err);
           });
 
         // If a file (image) was selected, upload it
@@ -73,7 +74,7 @@ export class AuthService {
           this.collectionService.uploadImage(userId, file)
             .then((imageUrl: string) => {
               this.toaster.success('Image uploaded successfully')
-              console.log('Image uploaded successfully:', imageUrl);
+              // console.log('Image uploaded successfully:', imageUrl);
 
               // Combine all user data
               const userData = {
@@ -93,11 +94,11 @@ export class AuthService {
             .then(() => {
               this.toaster.success('User data stored successfully in Firestore')
 
-              console.log('User data stored successfully in Firestore');
+              // console.log('User data stored successfully in Firestore');
             })
             .catch((err) => {
               this.toaster.error(err.message)
-              console.error('Error storing user data or uploading image:', err);
+              // console.error('Error storing user data or uploading image:', err);
             });
         } else {
           // If no file was selected, just store the user data
@@ -120,13 +121,13 @@ export class AuthService {
             .catch((err) => {
               this.toaster.error(err.message)
 
-              console.error('Error storing user data:', err);
+              // console.error('Error storing user data:', err);
             });
         }
       })
       .catch((err) => {
         this.toaster.error(err.message)
-        console.error('Registration error:', err);
+        // console.error('Registration error:', err);
       });
   }
 
@@ -135,12 +136,12 @@ export class AuthService {
     signOut(this.auth).then(() => {
       localStorage.removeItem('userId');
       this.router.navigate(['/log-in']);
-      this.toaster.success('logging Out')
+      this.toaster.success('logged Out')
     })
       .catch((err) => {
         this.toaster.error(err.message)
 
-        console.error('Logout error:', err);
+        // console.error('Logout error:', err);
       });
   }
 
@@ -198,6 +199,7 @@ export class AuthService {
 
   async updateProfileData(userId: any, newUserData: any, file: File | null) {
     try {
+      let imgurl = ''
         // Firestore reference to the user document
         const userRef = doc(this.firestore, `userdata/${userId}`);
         // Check if a new file (image) is provided
@@ -211,8 +213,9 @@ export class AuthService {
                     await this.collectionService.removeImage(currentImageUrl);
                 }
                 // Upload the new image and update newUserData
-                const newImageUrl = await this.collectionService.uploadImage(userId, file);
-                newUserData.imageUrl = newImageUrl;
+                 imgurl = await this.collectionService.uploadImage(userId, file);
+
+                newUserData.imageUrl = imgurl;
             }
         }
         // Get current user data from Firestore
@@ -222,7 +225,7 @@ export class AuthService {
         const currentUser = auth.currentUser;
         // Check if the current user exists
         if (!currentUser) {
-            console.error('No logged-in user found.');
+            // console.error('No logged-in user found.');
             return;
         }
         // Check if the email has changed
@@ -230,15 +233,15 @@ export class AuthService {
             try {
                 // Update the user's email address
                 await updateEmail(currentUser, newUserData.email);
-                console.log('Email updated successfully to:', newUserData.email);
+                // console.log('Email updated successfully to:', newUserData.email);
                 // Send a verification email for the new email
                 await sendEmailVerification(currentUser);
-                console.log('Verification email sent to:', newUserData.email);
+                // console.log('Verification email sent to:', newUserData.email);
             } catch (error:any) {
-                console.error('Error updating email:', error);
+                // console.error('Error updating email:', error);
                 // Handle cases like re-authentication if required
                 if (error.code === 'auth/requires-recent-login') {
-                    console.error('User needs to re-authenticate before changing email.');
+                    // console.error('User needs to re-authenticate before changing email.');
                     // Here you may want to call a re-authentication function
                 }
                 return
@@ -246,9 +249,12 @@ export class AuthService {
         }
         // Update the user data in Firestore (including new image URL if applicable)
         await this.collectionService.storeUserData(userId, newUserData);
-        console.log('User data updated successfully.');
+        if(imgurl !==''){
+          this.dataService.updateData(imgurl);
+        }
+        // console.log('User data updated successfully.');
     } catch (error) {
-        console.error('Error updating user data:', error);
+        // console.error('Error updating user data:', error);
     }
 }
 

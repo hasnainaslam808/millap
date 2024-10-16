@@ -1,14 +1,16 @@
-
-
-
-
 <div class="container-fluid">
+    <div> Filter <button class="filter-btn-res" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <img id="filter-img" src="assets/Layer_3 (1).png" alt="filter-button">
+        </button><br><br></div>
 
+        <div *ngIf="personData.length === 0" class="no-data-found">
+            <h3 class="text-center">No Data Found</h3>
+        </div>
     <div class="list-container">
-        <div class="list-tab"  *ngFor="let item of personData ;let i = index">
+        <div class="list-tab" *ngFor="let item of personData ;let i = index">
             <div class="text-end">
-                <img src=" {{item.isFavorite? 'assets/fill heart.png':'assets/heart.png'}}   " alt="" width="21px" height="21px" (click)="addFvrt(item.isFavorite,item.id,i)">
-           
+                <img src=" {{item.isFavorite? 'assets/fill heart.png':'assets/heart.png'}}   " alt="" width="21px"
+                    height="21px" (click)="addFvrt(item.isFavorite,item.id,i)">
             </div>
             <div class="inside-container">
                 <div class="pofile">
@@ -28,11 +30,66 @@
 
 
         </div>
-     
+
     </div>
 </div>
 
 
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filter Options</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #missingperson="ngForm" (ngSubmit)="submitForm(missingperson.value)">
+
+                <div class="modal-body">
 
 
 
+
+                    <div class=" col-12 ">
+                        <label for="country">Country</label>
+                        <select name="country" id="country" required name="country" ngModel #country="ngModel">
+                            <option selected>USA</option>
+                        </select>
+
+                    </div>
+
+                    <div class=" col-12 ">
+                        <label for="state">State</label>
+                        <select id="state" required name="state" (change)="onCountryChange(state.value)" ngModel
+                            #state="ngModel">
+                            <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
+                        </select>
+
+                    </div>
+
+                    <div class=" col-12 ">
+                        <label for="city">City</label>
+                        <select name="city" id="city" required name="city" ngModel #city="ngModel">
+                            <option *ngFor="let city of cities" [ngValue]="city">{{ city.name }}</option>
+                        </select>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

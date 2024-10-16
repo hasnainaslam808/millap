@@ -1,5 +1,5 @@
 section {
-    height: 100vh;
+    // height: 100vh;
     padding-top: 2rem;
     padding-bottom: 2rem;
 
@@ -20,13 +20,13 @@ section {
 
             img {
                 position: absolute;
-                right: 10px;  // Adjust as needed to fit within the input
-                top: 50%;     // Center the image vertically
-                transform: translateY(-50%);  // Adjust to center the image vertically
-                max-width: 40px;   // Set a max width to prevent overflow
-                max-height: 40px;  // Set a max height to prevent overflow
-                height: auto;      // Maintain aspect ratio
-                width: auto;       // Maintain aspect ratio
+                right: 10px;  
+                top: 50%;  
+                transform: translateY(-50%);  
+                max-width: 40px;   
+                max-height: 40px;  
+                height: auto;      
+                width: auto;       
             }
         }
 
@@ -90,6 +90,7 @@ section {
         }
 
         form {
+            // height: 100vh;
             div {
                 width: 100%;
             }

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-user-auth',
   templateUrl: './user-auth.component.html',
   styleUrls: ['./user-auth.component.scss']
 })
-export class UserAuthComponent {
+export class UserAuthComponent implements OnInit {
   currentRoute = '';
   mainTitle = '';
   subTitle = '';
@@ -16,7 +16,9 @@ export class UserAuthComponent {
   password: string = '';
   selectedFile: File | null = null;  // Store the selected file
   imagePreview: string | ArrayBuffer | null = null;  // To store the image preview
-
+  countries: any[] = [];
+  selectedCountry?: any;
+  cities: any[] = [];
   // Handle file selection and generate image preview
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -29,7 +31,7 @@ export class UserAuthComponent {
     }
   }
 
-  constructor(private activateroute: ActivatedRoute, private auth: AuthService) {
+  constructor(private activateroute: ActivatedRoute, private auth: AuthService, private http: HttpClient) {
     this.activateroute.data.subscribe((res: any) => {
       this.currentRoute = res.currentRoute;
       if (this.currentRoute === 'sign-up') {
@@ -40,6 +42,9 @@ export class UserAuthComponent {
         this.subTitle = 'Please enter your registered name and email below to login to your account.';
       }
     });
+  }
+  ngOnInit() {
+    this.loadCountries();
   }
 
   login(val: NgForm) {
@@ -63,5 +68,26 @@ export class UserAuthComponent {
       return;
     }
     this.auth.register(val, this.selectedFile);
+  }
+
+
+  loadCountries() {
+    this.http.get<any[]>('assets/countries.json').subscribe(data => {
+      this.countries = data;
+    });
+  }
+
+  
+  onCountryChange(event: any) {
+    // Get the selected country object
+    this.selectedCountry = event;
+
+    // Update the cities based on the selected country
+    if (this.selectedCountry) {
+      this.cities = this.selectedCountry.cities; 
+      console.log(this.cities); // Log the cities to see if they're correct
+    } else {
+      this.cities = []; // Reset cities if no country is selected
+    }
   }
 }

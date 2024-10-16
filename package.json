@@ -21,7 +21,6 @@
     "@angular/router": "^16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@popperjs/core": "^2.11.6",
-    "bootstrap": "^5.2.3",
     "firebase": "^10.14.1",
     "ngx-popper": "^7.0.0",
     "ngx-toastr": "^19.0.0",

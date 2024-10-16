@@ -31,10 +31,10 @@ export class FirebaseCollectionService {
       const userDocRef = doc(this.firestore, `userdata/${userId}`);
       await setDoc(userDocRef, data);
       this.toaster.success('User data stored in Firestore')
-      console.log('User data stored in Firestore:', data);
+      // console.log('User data stored in Firestore:', data);
     } catch (error) {
       this.toaster.error('Error storing user data')
-      console.error('Error storing user data:', error);
+      // console.error('Error storing user data:', error);
     }
   }
   async removeImage(imageUrl: string): Promise<void> {
@@ -49,9 +49,9 @@ export class FirebaseCollectionService {
 
       // Delete the file
       await deleteObject(storageRef);
-      console.log('Image removed successfully:', imageUrl);
+      // console.log('Image removed successfully:', imageUrl);
     } catch (error) {
-      console.error('Error removing image:', error);
+      // console.error('Error removing image:', error);
     }
   }
 
@@ -80,7 +80,7 @@ export class FirebaseCollectionService {
     try {
       // Upload the image and get the URL
       const imgUrl = await this.uploadUserStoryImage(file);
-      console.log('Image uploaded successfully:', imgUrl);
+      // console.log('Image uploaded successfully:', imgUrl);
 
       // Add the image URL to the story data
       data.imgUrl = imgUrl;
@@ -91,14 +91,100 @@ export class FirebaseCollectionService {
       // console.log('Document written with ID: ', docRef.id);
     } catch (error: any) {
       this.toaster.error(error.message)
-      console.error('Error uploading image or adding story:', error);
+      // console.error('Error uploading image or adding story:', error);
     }
   }
 
+  async getOwnerUploadedStories(userId: any): Promise<any[]> {
+    try {
+      // Reference the 'missing-user-story' collection
+      const storiesCollection = collection(this.firestore, 'missing-user-story');
 
+      // Create a query to find documents where userId matches the provided parameter
+      const userStoriesQuery = query(storiesCollection, where('userId', '==', userId));
 
+      // Execute the query
+      const querySnapshot = await getDocs(userStoriesQuery);
 
-  // Method to fetch user data from Firestore
+      // Extract and return matching documents
+      const matchedStories = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      return matchedStories;
+    } catch (error: any) {
+      console.error('Error fetching stories by userId:', error);
+      throw error;  // You can handle this error as per your requirement
+    }
+  }
+
+ 
+  
+  async searchStoryByName(name: any): Promise<any[]> {
+    try {
+        // Fetch all stories first
+        const storiesCollection = collection(this.firestore, 'missing-user-story');
+        const allStoriesSnapshot = await getDocs(storiesCollection);
+
+        // Extract all stories
+        const allStories = allStoriesSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        // Trim and normalize the input
+        const normalizedInput = name.trim().toLowerCase();
+
+        // Filter stories to find matches that contain the input
+        const matchedStories = allStories.filter((story:any) =>
+            story.name.toLowerCase().includes(normalizedInput)
+        );
+
+        // console.log('Matched Stories:', matchedStories);
+        return matchedStories;
+    } catch (error: any) {
+        console.error('Error fetching stories by name:', error);
+        throw error;  // You can handle this error based on your requirement
+    }
+}
+
+  
+async filter(val: any) {
+  try {
+    // Extract city, country, and state from the form input
+    const filterData = {
+      city: val.city.name,
+      country: val.country,
+      state: val.state.name
+    };
+
+    // Fetch all stories
+    const storiesCollection = collection(this.firestore, 'missing-user-story');
+    const allStoriesSnapshot = await getDocs(storiesCollection);
+
+    // Extract all stories
+    const allStories = allStoriesSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    // Filter stories by city, country, and state
+    const filteredStories = allStories.filter((story: any) =>
+      (!filterData.city || story.city === filterData.city) &&
+      (!filterData.country || story.country === filterData.country) &&
+      (!filterData.state || story.state === filterData.state)
+    );
+
+    console.log('Filtered Stories:', filteredStories);
+    return filteredStories;
+  } catch (error) {
+    console.error('Error filtering stories:', error);
+    throw error; // Handle error appropriately
+  }
+}
+
+  
   async fetchStoryById(docId: string): Promise<any> {
     try {
       const userDocRef = doc(this.firestore, `missing-user-story/${docId}`);
@@ -109,11 +195,11 @@ export class FirebaseCollectionService {
       if (userDoc.exists()) {
         return userDoc.data();
       } else {
-        console.error('No such document!');
+        // console.error('No such document!');
         return null;
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      // console.error('Error fetching user data:', error);
       return null;
     }
   }
@@ -149,6 +235,8 @@ export class FirebaseCollectionService {
 
       // Fetch all stories from the 'missing-user-story' collection
       const storiesCollection = collection(this.firestore, 'missing-user-story');
+      
+      
       const querySnapshot = await getDocs(storiesCollection);
 
       // Extract the stories
@@ -165,7 +253,7 @@ export class FirebaseCollectionService {
 
         // Get the storyIds of the user's favorite stories
         const favoriteStoryIds = favoriteSnapshot.docs.map((doc: any) => doc.data().storyId);
-        console.log(favoriteStoryIds, 'fvrtids')
+        // console.log(favoriteStoryIds, 'fvrtids')
         // Mark the favorite stories in the fetched stories
         stories = stories.map(story => {
 
@@ -182,7 +270,7 @@ export class FirebaseCollectionService {
 
       return stories;
     } catch (error) {
-      console.error('Error fetching stories:', error);
+      // console.error('Error fetching stories:', error);
       return [];
     }
   }
@@ -223,10 +311,10 @@ export class FirebaseCollectionService {
       // Add the favorite story to Firestore
       const docRef = await addDoc(favoriteStoryRef, favoriteStoryData);
 
-      console.log('Favorite story saved with ID:', docRef.id);
+      // console.log('Favorite story saved with ID:', docRef.id);
       this.toaster.success("added to favourite")
     } catch (error) {
-      console.error('Error saving favorite story:', error);
+      // console.error('Error saving favorite story:', error);
     }
   }
 
@@ -258,10 +346,10 @@ export class FirebaseCollectionService {
         favoriteStories.some((favStory: any) => favStory.storyId === story.id) // Match storyId
       );
 
-      console.log('Matched favorite stories:', matchedStories); // Final output
+      // console.log('Matched favorite stories:', matchedStories); // Final output
       return matchedStories;  // Return the matched favorite stories as an array
     } catch (error) {
-      console.error('Error fetching favorite stories:', error);
+      // console.error('Error fetching favorite stories:', error);
       return [];  // Return an empty array in case of an error
     }
   }
@@ -288,13 +376,13 @@ export class FirebaseCollectionService {
       querySnapshot.forEach(async (docSnapshot) => {
         const docRef = doc(this.firestore, `favorite-story/${docSnapshot.id}`);
         await deleteDoc(docRef);
-        console.log(`Favorite story with ID ${storyId} removed for user ${userId}`);
+        // console.log(`Favorite story with ID ${storyId} removed for user ${userId}`);
         this.toaster.success('Removed from favourite')
       });
 
     } catch (error:any) {
       this.toaster.error(error.message)
-      console.error('Error removing favorite story:', error);
+      // console.error('Error removing favorite story:', error);
     }
   }
 

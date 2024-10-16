@@ -1,28 +1,74 @@
 <div class="container-fluid">
-    <div class="logo">
-        <img src="assets/Group 1000008165.png" alt="">
+  <div class="logo">
+    <img data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" id="menu-img"
+      src="assets/menu.png" alt="menu button" height="50px" width="50px">
+
+    <img src="assets/Group 1000008165.png" alt="logo" width="153px" height="56px">
+  </div>
+  <div class="header-profile">
+    <div class="profile">
+      <div class="search" id="search">
+        <input type="text" [(ngModel)]="search" placeholder="search by name">
+        <a (click)="getValue()">
+          <img src="assets/Group 4.png" alt="search-icon" height="100%">
+        </a>
+      </div>
+
+      <div></div>
+      <button type="button" id="add-btn" title="Add missing person's detail"
+        routerLink="dashboard/missing-person-detail">+ Add</button>
+      <img src="{{imgUrl}}" alt="profile-img" height="56px" width="56px">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Hasnain
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" routerLink="/update-profile">
+              <img src="assets/profile.png" alt="" width="14px" height="18px"> My Profile
+            </a></li>
+          <li><a class="dropdown-item" (click)="logOut()"><button>Log out</button></a></li>
+        </ul>
+
+      </div>
+
     </div>
-    <div class="header-profile">
-        <!-- <div class="filter">
-            <img src="assets/Group 4.png" alt="">
-            <img src="assets/Group 4.png" alt="">
-        </div> -->
-        <div class="profile">
-            <img src={{imgUrl}} alt="" height="56px" width="56px">
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  Hasnain 
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" routerLink="/update-profile"><img src="assets/profile.png" alt="" width="14px" height="18px">My Profile</a></li>
-                  <li><a class="dropdown-item" routerLink="/setting"><img src="assets/setting.png" alt="" width="14px" height="18px"> Settings</a></li>
-                  <li><a class="dropdown-item" (click)="logOut()"><button >Log out</button></a></li>
-                </ul>
-              </div>
-        </div>
-      
+  </div>
+</div>
+
+
+
+
+<!-- offcanvas  -->
+
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <img src="assets/Group 1000008165.png" alt="logo" width="153px" height="56px">
+
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+
+
+
+
+
+      <button type="button" id="add-btn-res" title="Add missing person's detail"
+        routerLink="dashboard/missing-person-detail">+ Add</button>
+
+    
+
+      <a id="myProfile" routerLink="/update-profile">
+        <img src="assets/profile.png" alt="" width="14px" height="18px"> My Profile
+      </a> <br><br>
+
+      <button id="logout-btn" (click)="logOut()">Log out</button>
+
     </div>
+
+  </div>
 </div>
 
 

@@ -1,4 +1,24 @@
+
+@mixin filter-btn {
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    height: 50px;
+    margin-block-start: 10px
+}
 .container-fluid {
+
+
+    .filter-btn-res {
+        @include filter-btn();
+        width: 56px;
+        height: 56px;
+
+        img{
+            height: 56%;
+            width: 56%;
+        }
+    }
     .list-container {
         display: flex;
         flex-wrap: wrap;
@@ -10,7 +30,7 @@
             background-color: #eefbf1;
             padding: 25px;
             border-radius: 10px;
-            width: 45%; /* Default width */
+            width: 45%; 
             transition: all 0.3s ease;
 
             .inside-container {
@@ -70,7 +90,6 @@
         }
     }
 
-    /* Media Queries for Responsive Design */
     @media (max-width: 1200px) {
         .list-tab {
             width: 60%;
@@ -83,16 +102,14 @@
         }
     }
 
-    /* Trigger wrapping at 680px */
     @media (max-width: 680px) {
         .list-container {
             flex-direction: column;
-             /* Stack items in a column to force wrapping */
         }
 
         .list-tab {
             width: 90% !important;
-            margin: auto !important; /* Adjust width to make content readable on smaller screens */
+            margin: auto !important; 
         }
 
         .inside-container {
@@ -109,10 +126,9 @@
         }
     }
 
-    /* For screens below 576px */
     @media (max-width: 576px) {
         .list-tab {
-            width: 100%; /* Full width for smaller screens */
+            width: 100%; 
             padding: 20px;
         }
 
@@ -120,7 +136,7 @@
             gap: 15px;
 
             .pofile {
-                flex-direction: column; /* Stack profile elements vertically */
+                flex-direction: column; 
                 align-items: flex-start;
             }
 
@@ -148,15 +164,14 @@
         }
     }
 
-    /* Additional Styles for Smaller Screens (360px) */
     @media (max-width: 360px) {
         .list-tab {
-            width: 100%; /* Keep the width fixed at 100% */
+            width: 100%; 
             padding: 15px;
         }
 
         .inside-container {
-            flex-direction: column; /* Stack elements in column */
+            flex-direction: column;
             align-items: flex-start;
             gap: 10px;
 
@@ -194,3 +209,42 @@
         }
     }
 }
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.modal{
+    
+        form{
+            width: 90%;
+            margin: auto;
+           
+            select{
+                width: 100%;
+                height: 49px;
+                background-color: #F8F8F8;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                margin-top: 10px;
+                padding-inline-start: 10px;
+            }
+        
+       
+        
+        }
+     
+    }

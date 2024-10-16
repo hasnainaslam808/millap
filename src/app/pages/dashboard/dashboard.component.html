@@ -1,25 +1,22 @@
-<!-- dashboard.component.html -->
 <div class="container-fluid">
     <div>
         <h3>Dashboard</h3>
     </div>
 
-    <div class="dashboard-tabs">
-        <div class="tab">
+    <div  class="dashboard-tabs">
+        <div routerLink="love-ones" class="tab" [ngClass]="{'active-tab': activeTab === 'loved-ones'}" (click)="setActiveTab('loved-ones')">
             <h3>Loved Ones</h3>
-            <a routerLink="love-ones"><img src="assets/Group 1.png" alt=""></a>
+            <a ><img src="assets/Group 1.png" alt=""></a>
         </div>
-        <div class="tab">
+        <div routerLink="favorite-story" class="tab" [ngClass]="{'active-tab': activeTab === 'favorite-story'}" (click)="setActiveTab('favorite-story')">
             <h3>View Favorites</h3>
-            <a routerLink="favorite-story"><img src="assets/Group 2.png" alt=""></a>
+            <a ><img src="assets/Group 2.png" alt=""></a>
         </div>
-        <div class="tab">
-            <h3>Add Missing Person's Detail</h3>
-            <a routerLink="missing-person-detail"><img src="assets/Group 3.png" alt=""></a>
+        <div routerLink="my-list" class="tab" [ngClass]="{'active-tab': activeTab === 'my-list'}" (click)="setActiveTab('my-list')">
+            <h3>MY List</h3>
+            <a ><img src="assets/Group 3.png" alt=""></a>
         </div>
     </div>
-
-  
 </div>
-  <!-- Child routes will render here -->
-  <router-outlet></router-outlet>
+
+<router-outlet></router-outlet>

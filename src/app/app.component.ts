@@ -23,7 +23,7 @@ export class AppComponent {
         this.layOutTogle = currentRoute.snapshot.data.header
         this.dashboard = currentRoute.snapshot.data.dashboard
 
-        
+
      });
 
   

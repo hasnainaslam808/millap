@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FirebaseCollectionService } from 'src/app/shared/services/firebase-collection.service';
@@ -18,8 +19,13 @@ export class MissingPersonDetailComponent {
   imgUrl = '';
   imagePreview: string | ArrayBuffer | null = '';  // To store image preview
   selectedFile!: File;  // Store the selected file
+  countries: any[] = [];
+  selectedCountry?: any;
+  cities: any[] = [];
 
-  constructor(private firebase: FirebaseCollectionService) {}
+  constructor(private firebase: FirebaseCollectionService, private http: HttpClient) {
+    this.loadCountries();
+  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -39,19 +45,43 @@ export class MissingPersonDetailComponent {
       });
       return;
     }
-
+    let userId = localStorage.getItem('userId')
     const obj = {
       name: val.value.name,
       Relationship: val.value.Relationship,
       country: val.value.country,
-      state: val.value.state,
-      city: val.value.city,
+      state: val.value.state.name,
+      city: val.value.city.name,
       location: val.value.Location,
       story: val.value.Story,
       imgUrl: '',
-      isFavorite: false
+      isFavorite: false,
+      userId: userId
     };
+// console.log(obj);
 
     this.firebase.uploadUserStory(obj, this.selectedFile);
   }
+
+
+  loadCountries() {
+    this.http.get<any[]>('assets/countries.json').subscribe(data => {
+      this.countries = data;
+    });
+  }
+
+
+  onCountryChange(event: any) {
+    // Get the selected country object
+    this.selectedCountry = event;
+
+    // Update the cities based on the selected country
+    if (this.selectedCountry) {
+      this.cities = this.selectedCountry.cities;
+      console.log(this.cities); // Log the cities to see if they're correct
+    } else {
+      this.cities = []; // Reset cities if no country is selected
+    }
+  }
+
 }

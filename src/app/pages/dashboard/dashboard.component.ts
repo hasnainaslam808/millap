@@ -7,9 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+
+  activeTab: string = 'loved-ones';  
+
   constructor(private router: Router) {}
+
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
   ngOnInit(): void {
-    // Check karain agar current route dashboard hai, to love-ones par navigate karain
     if (this.router.url === '/dashboard') {
       this.router.navigate(['/love-ones']);
     }

@@ -20,7 +20,7 @@ export class SelectedUserStoryComponent implements OnInit {
   ngOnInit(): void {
     if (this.storyId !== '')
       this.collectionService.fetchStoryById(this.storyId).then((res) => {
-        console.log(res);
+        // console.log(res);
       this.dataArry = res
       }).catch((err: any) => {
 

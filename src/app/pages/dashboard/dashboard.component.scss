@@ -15,39 +15,56 @@ h3 {
     gap: 30px;
     flex-wrap: wrap;
     margin-block-start: 50px;
-}
 
-.tab {
-    flex: 1 1 30%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
-    h3{
-        font-size: 30px;
-        font-weight: 500;
+    .active-tab {
+        border-bottom: 4px solid black;
+    }
+
+    .tab {
+        flex: 1 1 30%;
+        display: flex;
+        position: relative;
+
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+
+        h3 {
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        img {
+            width: 84px;
+            height: 84px;
+        }
+
     }
 }
 
-.tab img {
-    width: 84px;
-    height: 84px;
-}
 
-/* Responsive Styles */
+
+
+
 @media (max-width: 1200px) {
     .tab {
-        flex: 1 1 45%; /* Increase width on smaller screens */
+        flex: 1 1 45%;
     }
 }
 
 @media (max-width: 768px) {
+    .dashboard-tabs {
+        flex-direction: column;
+    }
+
     .tab {
-        flex: 1 1 100%; /* Stacks tabs vertically on mobile */
+        flex: 1 1 100%;
+        margin-block-start: 20px;
     }
 }
+
 
 @media (max-width: 480px) {
     .tab {

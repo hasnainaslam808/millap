@@ -28,6 +28,7 @@ import { FirestoreModule } from '@angular/fire/firestore';
 // toaster
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { ToastrModule } from 'ngx-toastr';
     // Initialize Firebase app
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    FirestoreModule
+    FirestoreModule,
+    HttpClientModule
     // Provide Firebase services
     // provideDatabase(() => getDatabase()),
     // // provideAuth(() => getAuth()),
